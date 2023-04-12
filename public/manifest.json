@@ -1,0 +1,17 @@
+{
+    "name": "adhunik-dental",
+    "short_name": "App",
+    "icons": [
+      {
+        "src": "/next.svg",
+        "sizes": "16x16",
+        "type": "image/svg",
+        "purpose": "any maskable"
+      }
+    ],
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }

@@ -1,0 +1,55 @@
+@import './components/slider.scss';
+@import './components/navbar.scss';
+@import './components/testimonial.scss';
+@import './_variables.scss';
+
+body{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    scroll-behavior: smooth;
+    
+    &::-webkit-scrollbar {
+        display: none;
+      }
+
+    .bg{
+      &-primary{
+        background-color: $color-primary !important;
+      }
+      &-secondary{
+        background-color: $color-secondary !important;
+      }
+      &-ternary{
+        background-color: $color-ternary !important;
+      }
+      &-dark{
+        background-color: $color-ternary !important;
+      }
+    }
+
+    .text{
+      &-primary{
+        color: $color-primary !important;
+      }
+      &-secondary{
+        color: $color-secondary !important;
+      }
+      &-ternary{
+        color: $color-ternary !important;
+      }
+      &-dark{
+        color: $color-ternary !important;
+      }
+    }
+}
+
+@font-face {
+  font-family: "SofaChrome";
+  src: url("/assets/fonts/sofachrome/sofachrome.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SofaChrome";
+  src: url("/assets/fonts/sofachrome/sofachrome-it.otf") format("opentype");
+  font-style: italic;
+}
