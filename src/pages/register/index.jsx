@@ -11,6 +11,7 @@ import { Container } from "react-bootstrap";
 let userSchema = object({
   name: string().required(),
   email: string().required(),
+  phone: string().required(),
   password: string()
     .required("No password provided.")
     .min(4, "Password is too short - should be 4 chars minimum.")
@@ -18,12 +19,17 @@ let userSchema = object({
 });
 
 const RegisterForm = () => {
+  const handleSubmit =() =>{
+    console.log(values);
+
+  };
   return (
     <Formik
       validationSchema={userSchema}
-      onSubmit={console.log}
+      // onSubmit={console.log(initialValues)}
       initialValues={{
         name: "",
+        phone: "",
         email: "",
         password: "",
       }}
@@ -63,6 +69,30 @@ const RegisterForm = () => {
                         />
                         <Form.Control.Feedback type="invalid">
                           {errors.name}
+                        </Form.Control.Feedback>
+                      </FloatingLabel>
+                    </InputGroup>
+                  </Form.Group>
+                </Row>
+                <Row>
+                  <Form.Group controlId="validationFormikUsername">
+                    <InputGroup hasValidation>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Phone Number"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="tel"
+                          placeholder="Phone Number"
+                          aria-describedby="inputGroupPrepend"
+                          name="phone"
+                          value={values.phone}
+                          onChange={handleChange}
+                          isInvalid={!!errors.phone}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.phone}
                         </Form.Control.Feedback>
                       </FloatingLabel>
                     </InputGroup>
