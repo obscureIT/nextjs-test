@@ -7,6 +7,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Formik } from "formik";
 import { object, string, number, date, InferType } from "yup";
 import { Container } from "react-bootstrap";
+import axios from "axios";
 
 let userSchema = object({
   name: string().required(),
@@ -17,21 +18,26 @@ let userSchema = object({
     .min(4, "Password is too short - should be 4 chars minimum.")
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
 });
-const onSubmit =() =>{
-  console.log("hrllo", initialValues)
-con
-    alert(JSON.stringify(values, null, 2));
-  
-}
+
 const RegisterForm = () => {
   
   return (
     <Formik
       validationSchema={userSchema}
       onSubmit= {(values) => {
-        console.log(JSON.stringify(values, null, 2));
-        console.log(values, null, 2);
+        // console.log(JSON.stringify(values, null, 2));
+        console.log(values);
+        let pass_values = JSON.stringify(values, null, 2);
+        console.log("pass", pass_values)
+        
+        axios
+        .post('http://localhost:5000/api/v1/signup', {pass_values})
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(err => console.log(err));
       }}
+
       initialValues={{
         name: "",
         phone: "",
