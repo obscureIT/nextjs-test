@@ -17,16 +17,21 @@ let userSchema = object({
     .min(4, "Password is too short - should be 4 chars minimum.")
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
 });
-
+const onSubmit =() =>{
+  console.log("hrllo", initialValues)
+con
+    alert(JSON.stringify(values, null, 2));
+  
+}
 const RegisterForm = () => {
-  const handleSubmit =() =>{
-    console.log(values);
-
-  };
+  
   return (
     <Formik
       validationSchema={userSchema}
-      // onSubmit={console.log(initialValues)}
+      onSubmit= {(values) => {
+        console.log(JSON.stringify(values, null, 2));
+        console.log(values, null, 2);
+      }}
       initialValues={{
         name: "",
         phone: "",

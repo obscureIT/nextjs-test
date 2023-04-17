@@ -11,6 +11,12 @@ import Link from "next/link";
 const Slider = (props) => {
   const { sliderType, sliderItems } = props;
   const [modalShow, setModalShow] = useState(false);
+  const [modalShow2, setModalShow2] = useState(false);
+
+  const handelModal = () => {
+    setModalShow2(true);
+    setModalShow(false)
+  };
 
   return (
     <>
@@ -70,7 +76,7 @@ const Slider = (props) => {
           })}
       </Swiper>
 
-      <Popup show={modalShow} onHide={() => setModalShow(false)}>
+      <Popup show={modalShow2} onHide={() => setModalShow2(false)}>
         <Modal.Body>
           <h4 className="text-center text-secondary">
             Let's login to your Adhunik-dental account first
@@ -84,8 +90,43 @@ const Slider = (props) => {
               Register Here
             </Link>
           </p>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
         </Modal.Footer>
+      </Popup>
+      <Popup show={modalShow} onHide={() => setModalShow(false)}>
+        <Modal.Body>
+          <p>
+            If you need a appointment for consultation or would like to schedule
+            with the doctor at yor nearest location all over Bangladesh, please
+            get your appointment with us and we’ll contact you shortly with
+            confirmation.
+          </p>
+          <b>Payment necessary!</b>
+          <p>Please call us if you have an emergency:</p>
+          <div className="d-flex">
+            <b className="me-4">Hot-line:</b>
+            <div className="d-flex flex-column">
+              <a href="tel:123-456-7890">123-456-7890 .</a>
+              <a href="tel:123-456-7890">123-456-7890</a>
+            </div>
+          </div>
+
+          <h6>HOURS:</h6>
+          <p className="mb-1">Friday : 7am-8pm</p>
+          <p className="mb-1">Saturday : 7am-8pm</p>
+          <p className="mb-1">Sunday : 7am-8pm</p>
+          <p className="mb-1">Monday : 7am-8pm</p>
+          <p className="mb-1">Tuesday : 7am-8pm</p>
+          <p className="mb-1">Wednesday : 7am-8pm</p>
+          <p className="mb-1">Thursday : 7am-8pm</p>
+        </Modal.Body>
+        <div className="text-center mb-3 mt-2">
+          <button
+            onClick={() => handelModal()}
+            className="px-5 py-2 bg-primary text-dark border border-0"
+          >
+            Get Appointment
+          </button>
+        </div>
       </Popup>
     </>
   );
