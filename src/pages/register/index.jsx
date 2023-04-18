@@ -27,11 +27,16 @@ const RegisterForm = () => {
       onSubmit= {(values) => {
         // console.log(JSON.stringify(values, null, 2));
         console.log(values);
-        let pass_values = JSON.stringify(values, null, 2);
-        console.log("pass", pass_values)
+
+        const post_values = {
+          name : values.name,
+          email : values.email,
+          phone : values.phone,
+          password : values.password
+        }
         
         axios
-        .post('http://localhost:5000/api/v1/signup', {pass_values})
+        .post('http://localhost:5000/api/v1/signup', post_values)
         .then((response) => {
           console.log(response);
         })
@@ -40,8 +45,8 @@ const RegisterForm = () => {
 
       initialValues={{
         name: "",
-        phone: "",
         email: "",
+        phone: "",
         password: "",
       }}
     >
