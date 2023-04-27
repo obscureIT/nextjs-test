@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -8,6 +9,9 @@ import { Formik } from "formik";
 import { object, string, number, date, InferType } from "yup";
 import { Container } from "react-bootstrap";
 import axios from "axios";
+import Otp from '../../components/otp/otp'
+import Popup from "../../components/popup/popup"
+import Modal from "react-bootstrap/Modal";
 
 let userSchema = object({
   name: string().required(),
@@ -20,6 +24,11 @@ let userSchema = object({
 });
 
 const RegisterForm = () => {
+  const [modalShow3, setModalShow3] = useState(false);
+  const handelModal = () => {
+    setModalShow3(true);
+   
+  };
   
   return (
     <Formik
@@ -176,12 +185,18 @@ const RegisterForm = () => {
                 </Form.Group>
                 <div className="text-center mb-3">
                   <Button
+                    onClick={() => handelModal()}
                     className="px-5 bg-primary text-dark border border-0"
                     type="submit"
                   >
                     Register
                   </Button>
                 </div>
+                <Popup show={modalShow3} onHide={() => setModalShow3(false)}>
+                  <Modal.Body>
+                    <Otp/>
+                  </Modal.Body>
+                </Popup>
               </Form>
             </Col>
           </Row>

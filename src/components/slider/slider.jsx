@@ -82,6 +82,7 @@ const Slider = (props) => {
             Let's login to your Adhunik-dental account first
           </h4>
           <LoginForm />
+        
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <p>
