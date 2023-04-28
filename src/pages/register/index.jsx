@@ -25,6 +25,7 @@ let userSchema = object({
 
 const RegisterForm = () => {
   const [modalShow3, setModalShow3] = useState(false);
+  const [postValues, setPostValues] = useState({})
   
   return (
     <Formik
@@ -32,15 +33,16 @@ const RegisterForm = () => {
       onSubmit= {(values) => {      
         console.log(values);
 
-        const post_values = {
+       setPostValues( {
+        ...postValues,
           name : values.name,
           email : values.email,
           phone : values.phone,
           password : values.password
-        }
+        })
         
         axios
-        .post('http://localhost:5000/api/v1/signup', post_values)
+        .post('http://localhost:5000/api/v1/signup', postValues)
         .then((response) => {
           console.log(response);
         })
@@ -191,7 +193,7 @@ const RegisterForm = () => {
                 </div>
                 <Popup show={modalShow3} onHide={() => setModalShow3(false)}>
                   <Modal.Body>
-                    <Otp/>
+                    <Otp postValues={postValues} />
                   </Modal.Body>
                 </Popup>
               </Form>

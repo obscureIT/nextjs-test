@@ -6,6 +6,7 @@ import axios from "axios";
 
 const Otp = (props) => {
   const [otp, setOtp] = useState('');
+  const {postValues} = props
 
   const verifyOtp =(e)=>{
     // if(otp === "" || otp === nul)return;
@@ -17,14 +18,31 @@ const Otp = (props) => {
     axios.post('http://localhost:5000/api/v1/verify-otp', params)
       .then((response) => {
           console.log(response.data , "otp");
+
+          setTimeout(() => {
+            login();
+          }, 2000);
       })
       .catch((error) => {
           console.log(error);
       });
-
-
   }
-  
+
+  const login =() =>{
+    const params = {
+      email: postValues.email,
+      password: postValues.password
+    }
+    axios
+    .post('http://localhost:5000/api/v1/signin', params)
+    .then(response => {
+      console.log(response);
+      alert("submitted");
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
 
   return (
     <div className="p-4 box ">
