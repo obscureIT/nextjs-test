@@ -25,16 +25,11 @@ let userSchema = object({
 
 const RegisterForm = () => {
   const [modalShow3, setModalShow3] = useState(false);
-  const handelModal = () => {
-    setModalShow3(true);
-   
-  };
   
   return (
     <Formik
       validationSchema={userSchema}
-      onSubmit= {(values) => {
-        // console.log(JSON.stringify(values, null, 2));
+      onSubmit= {(values) => {      
         console.log(values);
 
         const post_values = {
@@ -50,6 +45,9 @@ const RegisterForm = () => {
           console.log(response);
         })
         .catch(err => console.log(err));
+
+        setModalShow3(true);
+      
       }}
 
       initialValues={{
@@ -185,7 +183,6 @@ const RegisterForm = () => {
                 </Form.Group>
                 <div className="text-center mb-3">
                   <Button
-                    onClick={() => handelModal()}
                     className="px-5 bg-primary text-dark border border-0"
                     type="submit"
                   >

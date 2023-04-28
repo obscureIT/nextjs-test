@@ -1,16 +1,64 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
+import { Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import axios from "axios";
 
-export default function App() {
+const Otp = (props) => {
   const [otp, setOtp] = useState('');
 
+  const verifyOtp =(e)=>{
+    // if(otp === "" || otp === nul)return;
+    e.preventDefault();
+    const params = {
+      otp: otp
+    }
+
+    axios.post('http://localhost:5000/api/v1/verify-otp', params)
+      .then((response) => {
+          console.log(response.data , "otp");
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+
+
+  }
+  
+
   return (
-    <OtpInput
-      value={otp}
-      onChange={setOtp}
-      numInputs={4}
-      renderSeparator={<span>-</span>}
-      renderInput={(props) => <input {...props} />}
-    />
+    <div className="p-4 box ">
+    <p>
+      Validate OTP Please enter the OTP (one time password) to verify your
+      account.
+    </p>
+    <Form>
+      <Form.Group className="mb-3" controlId="formBasicOtp">
+      <OtpInput
+      inputStyle={{
+        width: "3rem",
+        height: "3rem",
+        margin: "0 auto",
+        fontSize: "1rem",
+        borderRadius: 4,
+        border: "2px solid rgba(0,0,0,0.3)"
+      }}
+        value={otp}
+        onChange={setOtp}
+        numInputs={4}
+        renderSeparator={<span>-</span>}
+        renderInput={(props) => <input {...props} />}
+      />
+      </Form.Group>
+
+      <Button onClick={e => verifyOtp(e)} variant="primary">
+        Verify
+      </Button>
+    </Form>
+<h6>
+Not received your code? <a href="../App.js">Resend code</a>
+</h6>
+</div>
   );
-}
+};
+export default Otp;
