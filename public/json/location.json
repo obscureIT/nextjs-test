@@ -1,0 +1,22 @@
+[
+    
+    
+    {
+        "id":"01",
+        "code": "DHK",
+        "name": "Dhaka"
+       
+    },
+    {
+        "id":"02",
+        "code": "SL",
+        "name": "Sylhet"
+        
+    },
+    {
+        "id":"03",
+        "code": "FN",
+        "name": "Feni"
+        
+    }
+]

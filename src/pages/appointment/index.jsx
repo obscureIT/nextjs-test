@@ -1,9 +1,28 @@
-const Appointment = () => {
-    return(
-        <div>
-            booking
-        </div>
-    )
-}
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
+import Autocomplete from '../../components/autocomplete/autocomplete';
+import locationData from '../../../public/json/location.json';
+import hospitalData from '../../../public/json/hospital.json';
+
+const Appointment = (props) => {
+    
+  return (
+    <div className='container mt-5'>
+      <Autocomplete 
+      data={locationData} 
+      fieldLabel="Choose Location"
+      renderOption={(props, option) => (
+        <Box
+          component="li"
+          {...props}
+        >
+          {option.label} ({option.code}) 
+        </Box>
+      )}/>
+      <Autocomplete data={hospitalData} fieldLabel="Choose Hospital"/>
+
+    </div>
+  );
+};
 
 export default Appointment;

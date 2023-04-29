@@ -1,0 +1,44 @@
+[
+    {
+        "districtId": "01",
+        "hospitals": [
+            {
+                "name": "BSH Hospital"
+            },
+            {
+                "name": "Popular Hospital"
+            },
+            {
+                "name": "Adhunik Hospital"
+            }
+        ]
+    },
+    {
+        "districtId": "02",
+        "hospitals": [
+            {
+                "name": "LabAid Hospital"
+            },
+            {
+                "name": "BSH Hospital (Sylhet)"
+            },
+            {
+                "name": "Adhunik Hospital (Sylhet}"
+            }
+        ]
+    },
+    {
+        "districtId": "03",
+        "hospitals": [
+            {
+                "name": "LabAid Hospital (Feni)"
+            },
+            {
+                "name": "BSH Hospital (Feni)"
+            },
+            {
+                "name": "Adhunik Hospital (Feni}"
+            }
+        ]
+    }
+]

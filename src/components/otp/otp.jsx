@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router'
 import OtpInput from 'react-otp-input';
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -6,6 +7,7 @@ import axios from "axios";
 
 const Otp = (props) => {
   const [otp, setOtp] = useState('');
+  const router = useRouter();
   const {postValues} = props
 
   const verifyOtp =(e)=>{
@@ -18,10 +20,9 @@ const Otp = (props) => {
     axios.post('http://localhost:5000/api/v1/verify-otp', params)
       .then((response) => {
           console.log(response.data , "otp");
-
-          setTimeout(() => {
-            login();
-          }, 2000);
+          login();
+          router.push('/appointment')
+         
       })
       .catch((error) => {
           console.log(error);
@@ -29,19 +30,20 @@ const Otp = (props) => {
   }
 
   const login =() =>{
-    const params = {
+    const userDetails = {
       email: postValues.email,
       password: postValues.password
     }
-    axios
-    .post('http://localhost:5000/api/v1/signin', params)
-    .then(response => {
-      console.log(response);
-      alert("submitted");
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    sessionStorage.setItem("user", userDetails);
+    // axios
+    // .post('http://localhost:5000/api/v1/signin', params)
+    // .then(response => {
+    //   console.log(response);
+    //   alert("submitted");
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
   }
 
   return (
