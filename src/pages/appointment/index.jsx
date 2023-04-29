@@ -10,15 +10,8 @@ const Appointment = (props) => {
     <div className='container mt-5'>
       <Autocomplete 
       data={locationData} 
-      fieldLabel="Choose Location"
-      renderOption={(props, option) => (
-        <Box
-          component="li"
-          {...props}
-        >
-          {option.label} ({option.code}) 
-        </Box>
-      )}/>
+      fieldLabel="Choose Location"/>
+     
       <Autocomplete data={hospitalData} fieldLabel="Choose Hospital"/>
 
     </div>
