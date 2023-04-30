@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 
 const CustomAutocomplete = (props) => {
-    const {data,fieldLabel, renderOption} =props
+    const {data,fieldLabel, optionListLabels} =props
 
     return(
     <Autocomplete
@@ -15,7 +15,11 @@ const CustomAutocomplete = (props) => {
         options={data}
         autoHighlight
         getOptionLabel={(option) => option.label}
-        renderOption={renderOption}
+        renderOption={(props, option) => (
+          <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+            {option.label} ({option.code})
+          </Box>
+        )}
         renderInput={(params) => (
           <TextField
             {...params}

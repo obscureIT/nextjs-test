@@ -12,7 +12,9 @@ const Appointment = (props) => {
       data={locationData} 
       fieldLabel="Choose Location"/>
      
-      <Autocomplete data={hospitalData} fieldLabel="Choose Hospital"/>
+      <Autocomplete 
+      data={hospitalData} 
+      fieldLabel="Choose Hospital"/>
 
     </div>
   );

@@ -40,9 +40,16 @@ const RegisterForm = () => {
           phone : values.phone,
           password : values.password
         })
+
+        const postParams = {
+          name : values.name,
+          email : values.email,
+          phone : values.phone,
+          password : values.password
+        }
         
         axios
-        .post('http://localhost:5000/api/v1/signup', postValues)
+        .post('http://localhost:5000/api/v1/signup', postParams)
         .then((response) => {
           console.log(response);
         })
