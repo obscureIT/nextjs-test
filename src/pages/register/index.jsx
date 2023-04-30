@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -7,10 +8,15 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Formik } from "formik";
 import { object, string, number, date, InferType } from "yup";
 import { Container } from "react-bootstrap";
+import axios from "axios";
+import Otp from '../../components/otp/otp'
+import Popup from "../../components/popup/popup"
+import Modal from "react-bootstrap/Modal";
 
 let userSchema = object({
   name: string().required(),
   email: string().required(),
+  phone: string().required(),
   password: string()
     .required("No password provided.")
     .min(4, "Password is too short - should be 4 chars minimum.")
@@ -18,13 +24,45 @@ let userSchema = object({
 });
 
 const RegisterForm = () => {
+  const [modalShow3, setModalShow3] = useState(false);
+  const [postValues, setPostValues] = useState({})
+  
   return (
     <Formik
       validationSchema={userSchema}
-      onSubmit={console.log}
+      onSubmit= {(values) => {      
+        console.log(values);
+
+       setPostValues( {
+        ...postValues,
+          name : values.name,
+          email : values.email,
+          phone : values.phone,
+          password : values.password
+        })
+
+        const postParams = {
+          name : values.name,
+          email : values.email,
+          phone : values.phone,
+          password : values.password
+        }
+        
+        axios
+        .post('http://localhost:5000/api/v1/signup', postParams)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(err => console.log(err));
+
+        setModalShow3(true);
+      
+      }}
+
       initialValues={{
         name: "",
         email: "",
+        phone: "",
         password: "",
       }}
     >
@@ -63,6 +101,30 @@ const RegisterForm = () => {
                         />
                         <Form.Control.Feedback type="invalid">
                           {errors.name}
+                        </Form.Control.Feedback>
+                      </FloatingLabel>
+                    </InputGroup>
+                  </Form.Group>
+                </Row>
+                <Row>
+                  <Form.Group controlId="validationFormikUsername">
+                    <InputGroup hasValidation>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Phone Number"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="tel"
+                          placeholder="Phone Number"
+                          aria-describedby="inputGroupPrepend"
+                          name="phone"
+                          value={values.phone}
+                          onChange={handleChange}
+                          isInvalid={!!errors.phone}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.phone}
                         </Form.Control.Feedback>
                       </FloatingLabel>
                     </InputGroup>
@@ -136,6 +198,11 @@ const RegisterForm = () => {
                     Register
                   </Button>
                 </div>
+                <Popup show={modalShow3} onHide={() => setModalShow3(false)}>
+                  <Modal.Body>
+                    <Otp postValues={postValues} />
+                  </Modal.Body>
+                </Popup>
               </Form>
             </Col>
           </Row>
