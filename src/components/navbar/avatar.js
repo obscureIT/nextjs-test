@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import PersonIcon from '@mui/icons-material/Person';
 
 function stringToColor(string) {
   let hash = 0;
@@ -34,7 +35,13 @@ function stringAvatar(name) {
 export default function BackgroundLetterAvatars(props) {
   return (
     <Stack direction="row" spacing={2}>
-      <Avatar {...stringAvatar(`${props.name}`)} />
+      { props.name ? 
+      <Avatar {...stringAvatar(`${props.name}`)} /> 
+      :
+      <Avatar>
+        <PersonIcon />
+      </Avatar>
+    }
     </Stack>
   );
 }
