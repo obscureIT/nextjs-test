@@ -1,10 +1,22 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
-import Autocomplete from "../../components/autocomplete/autocomplete";
+// import { Box } from "@mui/material";
+
 import locationData from "../../../public/json/location.json";
 import hospitalData from "../../../public/json/hospital.json";
-import Select from "react-select";
-// import dynamic from "next/dynamic";
+// import Select from "react-select";
+import dynamic from "next/dynamic";
+import {
+  Box,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  DatePicker,
+  LocalizationProvider,
+  AdapterDayjs,
+} from "@mui/material";
+import Autocomplete from "../../components/autocomplete/autocomplete";
+// import Autocomplete from "../../components/autocomplete/autocomplete";
 
 const locations = [
   { label: "Dhaka", value: "dhaka" },
@@ -19,7 +31,7 @@ const hospitals = [
   { label: "Sylhet Hospital", value: "sylhetHospital", location: "sylhet" },
 ];
 
-// const Select = dynamic(() => import("react-select"), { ssr: false });
+const Select = dynamic(() => import("react-select"), { ssr: false });
 
 const Appointment = (props) => {
   const [selectedLocation, setSelectedLocation] = useState(null);
