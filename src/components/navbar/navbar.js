@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -22,20 +22,17 @@ const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
 
 function Navigation(props) {
-  const [user, setUser] = useState("");
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  useEffect ( () => {
-    const userCookie = sessionStorage.getItem("user")
+
+  const user =
+    typeof sessionStorage !== "undefined" && sessionStorage.getItem("user")
       ? sessionStorage.getItem("user")
       : "";
-    console.log(JSON.parse(userCookie));
-    setUser(JSON.parse(userCookie));
-  },[]);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -94,7 +91,16 @@ function Navigation(props) {
               </Button>
             ))}
           </Box>
-          <BackgroundLetterAvatars name={user.name || ""} sx={{ ml: { md: 2 } }} />
+          {user === "" ? null : (
+            <>
+              {JSON.parse(user).name ? (
+                <BackgroundLetterAvatars
+                  name={JSON.parse(user).name || ""}
+                  sx={{ ml: { md: 2 } }}
+                />
+              ) : null}
+            </>
+          )}
         </Toolbar>
       </AppBar>
       <Box component="nav">
