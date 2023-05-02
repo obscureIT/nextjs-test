@@ -7,6 +7,7 @@ import '@/styles/main.scss';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+    spacing: 4,
     palette: {
       primary: {
         main: '#ffae00',
@@ -29,7 +30,26 @@ const theme = createTheme({
         contrastText: '#003566',
       },
     },
+    typography : {
+      h2:{
+        breakpoints: {
+          md : {
+            fontSize: '1.7rem'
+          }
+        }
+      }
+    }
 });
+
+theme.typography.h2 = {
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.7rem',
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '1rem',
+  },
+};
+
 
 export default function MyApp({ Component, pageProps }) {
     return(

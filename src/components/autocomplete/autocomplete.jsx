@@ -10,7 +10,7 @@ const CustomAutocomplete = (props) => {
     <Autocomplete
       id="country-select-demo"
       className="mx-auto mt-4"
-      sx={{ width: 300 }}
+      sx={{ width: "100%" }}
       options={data}
       autoHighlight
       getOptionLabel={(option) => option.label}
