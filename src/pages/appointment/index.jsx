@@ -62,14 +62,15 @@ const Appointment = (props) => {
     <Container>
       <Grid container spacing={6} sx={{ mt: 4, p: 6 }}>
         <Grid item xs={8}>
-          <div style={{ display: "inline-block", width:"244px" }}>
-            <Select
-              sx={{ width: "auto" }}
-              options={locations}
-              onChange={handleSelectLocationChange}
-              value={selectedLocation}
-              placeholder="Select an Location"
-            />
+          <div style={{  width: "444px" , margin: "0 auto"}} >
+            <Box>
+              <Select
+                options={locations}
+                onChange={handleSelectLocationChange}
+                value={selectedLocation}
+                placeholder="Select an Location"
+              />
+            </Box>
             {selectedLocation ? (
               <Box sx={{ mt: 4 }}>
                 <Select
