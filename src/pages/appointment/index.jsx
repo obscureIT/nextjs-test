@@ -9,9 +9,11 @@ import {
   Grid,
   Stack,
   Typography,
-  DatePicker,
-  LocalizationProvider,
-  AdapterDayjs,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Item,
 } from "@mui/material";
 import BasicDatePicker from "../../components/date-picker/date-picker";
 
@@ -60,33 +62,60 @@ const Appointment = (props) => {
     <Container>
       <Grid container spacing={6} sx={{ mt: 4, p: 6 }}>
         <Grid item xs={8}>
-          <div>
+          <div style={{ display: "inline-block", width:"244px" }}>
             <Select
+              sx={{ width: "auto" }}
               options={locations}
               onChange={handleSelectLocationChange}
               value={selectedLocation}
               placeholder="Select an Location"
             />
-
             {selectedLocation ? (
-              <Select
-                className="mt-3"
-                options={hospitals.filter(
-                  (option) => option.location === selectedLocation.value
-                )}
-                onChange={handleSelectHospitalChange}
-                value={selectedHospital}
-                placeholder="Select an Hospital"
-              />
+              <Box sx={{ mt: 4 }}>
+                <Select
+                  options={hospitals.filter(
+                    (option) => option.location === selectedLocation.value
+                  )}
+                  onChange={handleSelectHospitalChange}
+                  value={selectedHospital}
+                  placeholder="Select an Hospital"
+                />
+              </Box>
             ) : null}
           </div>
-          <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 6}}>
-            <Typography variant="h2" sx={{ mr: 10}}>Select Date</Typography>
+          <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
+            <Typography
+              variant="h2"
+              sx={{ mt: 3, mb: 4, mr: 10, flexShrink: "0" }}
+            >
+              Select Date
+            </Typography>
             <BasicDatePicker />
           </Stack>
         </Grid>
         <Grid item xs={4}>
-          <Box>secondbox</Box>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography
+                sx={{ fontSize: 14 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                Word of the Day
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                adjective
+              </Typography>
+              <Typography variant="body2">
+                well meaning and kindly.
+                <br />
+                {'"a benevolent smile"'}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Learn More</Button>
+            </CardActions>
+          </Card>
         </Grid>
       </Grid>
     </Container>
