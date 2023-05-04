@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import { Box } from "@mui/material";
-
 import locationData from "../../../public/json/location.json";
 import hospitalData from "../../../public/json/hospital.json";
 // import Select from "react-select";
@@ -15,8 +13,7 @@ import {
   LocalizationProvider,
   AdapterDayjs,
 } from "@mui/material";
-import Autocomplete from "../../components/autocomplete/autocomplete";
-// import Autocomplete from "../../components/autocomplete/autocomplete";
+import BasicDatePicker from "../../components/date-picker/date-picker";
 
 const locations = [
   { label: "Dhaka", value: "dhaka" },
@@ -60,30 +57,39 @@ const Appointment = (props) => {
   console.log(formData);
 
   return (
-    <React.Fragment>
-      <div style={{ margin: "100px 0" }}>
-        <div>
-          <Select
-            options={locations}
-            onChange={handleSelectLocationChange}
-            value={selectedLocation}
-            placeholder="Select an Location"
-          />
-
-          {selectedLocation ? (
+    <Container>
+      <Grid container spacing={6} sx={{ mt: 4, p: 6 }}>
+        <Grid item xs={8}>
+          <div>
             <Select
-              className="mt-5"
-              options={hospitals.filter(
-                (option) => option.location === selectedLocation.value
-              )}
-              onChange={handleSelectHospitalChange}
-              value={selectedHospital}
-              placeholder="Select an Hospital"
+              options={locations}
+              onChange={handleSelectLocationChange}
+              value={selectedLocation}
+              placeholder="Select an Location"
             />
-          ) : null}
-        </div>
-      </div>
-    </React.Fragment>
+
+            {selectedLocation ? (
+              <Select
+                className="mt-3"
+                options={hospitals.filter(
+                  (option) => option.location === selectedLocation.value
+                )}
+                onChange={handleSelectHospitalChange}
+                value={selectedHospital}
+                placeholder="Select an Hospital"
+              />
+            ) : null}
+          </div>
+          <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 6}}>
+            <Typography variant="h2" sx={{ mr: 10}}>Select Date</Typography>
+            <BasicDatePicker />
+          </Stack>
+        </Grid>
+        <Grid item xs={4}>
+          <Box>secondbox</Box>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
