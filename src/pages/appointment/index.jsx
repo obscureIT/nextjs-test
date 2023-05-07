@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import locationData from "../../../public/json/location.json";
 import hospitalData from "../../../public/json/hospital.json";
+import TimeSlots from "../../components/appointment/time-slots"
+import RadioButtons from "../../components/appointment/radio-button";
 // import Select from "react-select";
 import dynamic from "next/dynamic";
 import {
@@ -92,6 +94,15 @@ const Appointment = (props) => {
               Select Date
             </Typography>
             <BasicDatePicker />
+          </Stack>
+          <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
+            <Typography
+              variant="h2"
+              sx={{ mt: 3, mb: 4, mr: 10, flexShrink: "0" }}
+            >
+              Select Type
+            </Typography>
+            <RadioButtons/>
           </Stack>
         </Grid>
         <Grid item xs={4}>
