@@ -35,8 +35,8 @@ function stringAvatar(name) {
 export default function BackgroundLetterAvatars(props) {
   return (
     <Stack direction="row" spacing={2}>
-      { props.name ? 
-      <Avatar {...stringAvatar(`${props.name}`)} /> 
+      { props.name ?  
+      <Avatar  {...stringAvatar(`${props.name}`)} /> 
       :
       <Avatar>
         <PersonIcon />
