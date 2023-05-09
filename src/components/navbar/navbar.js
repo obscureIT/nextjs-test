@@ -15,8 +15,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/material";
+import { useRouter } from "next/router";
 import BackgroundLetterAvatars from "./avatar";
 import Link from "next/link";
+import DropDown from "./dropdown";
+import axios from "axios";
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
@@ -24,6 +27,24 @@ const navItems = ["Home", "About", "Contact"];
 function Navigation(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const router = useRouter();
+  //handle dropdown
+  const handleClick = (event) => {
+
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = async(type) => {
+    setAnchorEl(null);
+    if(type==="logout"){
+      sessionStorage.removeItem("user");
+      await axios.post("http://localhost:5000/api/v1/logout");
+      router.push("/");
+      
+    }
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -94,10 +115,22 @@ function Navigation(props) {
           {user === "" ? null : (
             <>
               {JSON.parse(user).name ? (
-                <BackgroundLetterAvatars
-                  name={JSON.parse(user).name || ""}
-                  sx={{ ml: { md: 2 } }}
-                />
+                <>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+                  <BackgroundLetterAvatars
+                    name={JSON.parse(user).name || ""}
+                    sx={{ ml: { md: 2 } }}
+                  />
+                </Button>
+                <DropDown open={open} handleClose={handleClose} anchorEl={anchorEl}/>
+                </>
+                
               ) : null}
             </>
           )}

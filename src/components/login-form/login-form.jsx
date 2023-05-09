@@ -1,4 +1,5 @@
 import Button from "react-bootstrap/Button";
+import { useRouter } from "next/router";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -6,22 +7,40 @@ import Row from "react-bootstrap/Row";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { Formik } from "formik";
 import { object, string, number, date, InferType } from "yup";
+import axios from "axios";
+// import { useRouter } from "next/router";
 
 let userSchema = object({
-  username: string().required(),
+  email: string().required(),
   password: string()
-  .required('No password provided.') 
-  .min(4, 'Password is too short - should be 4 chars minimum.')
-  .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+    .required('No password provided.')
+    .min(4, 'Password is too short - should be 4 chars minimum.')
+    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
 });
 
 const LoginForm = () => {
+  const router = useRouter();
   return (
     <Formik
       validationSchema={userSchema}
-      onSubmit={console.log}
+      onSubmit={async(values) => {
+        await axios
+          .post('http://localhost:5000/api/v1/signin', values)
+          .then((response) => {
+            //redirect to appointment page
+            let userDetails = {
+              email: response.data.doctor.email,
+              name: response.data.doctor.name,
+              phone: response.data.doctor.phone,
+            };
+            sessionStorage.setItem("user", JSON.stringify(userDetails));
+            router.push('/appointment');
+
+          })
+          .catch(err => console.log(err));
+      }}
       initialValues={{
-        username: "",
+        email: "",
         password: "",
       }}
     >
@@ -39,22 +58,22 @@ const LoginForm = () => {
             <Form.Group as={Col} md="12" controlId="validationFormikUsername">
               <InputGroup className="mt-4" hasValidation>
                 <FloatingLabel
-                    controlId="floatingInput"
-                    label="Email address"
-                    className="mb-3"
-                    >
-                    <Form.Control
+                  controlId="floatingInput"
+                  label="Email address"
+                  className="mb-3"
+                >
+                  <Form.Control
                     type="email"
-                    placeholder="Username"
+                    placeholder="Email"
                     aria-describedby="inputGroupPrepend"
-                    name="username"
-                    value={values.username}
+                    name="email"
+                    value={values.email}
                     onChange={handleChange}
-                    isInvalid={!!errors.username}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                    {errors.username}
-                    </Form.Control.Feedback>
+                    isInvalid={!!errors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
                 </FloatingLabel>
               </InputGroup>
             </Form.Group>
@@ -63,11 +82,11 @@ const LoginForm = () => {
             <Form.Group as={Col} md="12" controlId="validationFormikUsername">
               <InputGroup hasValidation>
                 <FloatingLabel
-                    controlId="floatingInput"
-                    label="Password"
-                    className="mb-3"
-                    >
-                    <Form.Control
+                  controlId="floatingInput"
+                  label="Password"
+                  className="mb-3"
+                >
+                  <Form.Control
                     type="password"
                     placeholder="Password"
                     aria-describedby="inputGroupPrepend"
@@ -75,10 +94,10 @@ const LoginForm = () => {
                     value={values.password}
                     onChange={handleChange}
                     isInvalid={!!errors.password}
-                    />
-                    <Form.Control.Feedback type="invalid">
+                  />
+                  <Form.Control.Feedback type="invalid">
                     {errors.password}
-                    </Form.Control.Feedback>
+                  </Form.Control.Feedback>
                 </FloatingLabel>
               </InputGroup>
             </Form.Group>
@@ -97,7 +116,7 @@ const LoginForm = () => {
           </Form.Group>
           <div className="text-center mb-3">
             <Button className="px-5 bg-primary text-dark border border-0" type="submit">LOGIN</Button>
-            </div>
+          </div>
         </Form>
       )}
     </Formik>
