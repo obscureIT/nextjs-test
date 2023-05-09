@@ -1,38 +1,18 @@
-import React, { useState } from "react";
+import React , { useState } from "react";
+import dayjs from "dayjs";
 import RadioButtons from "../../components/appointment/radio-button";
-import PatientDetilas from "../../components/appointment/patient-detilas"
-// import Select from "react-select";
-import dynamic from "next/dynamic";
+import PatientDetails from "../../components/appointment/patient-details"
 import {
-  Box,
   Container,
   Grid,
   Stack,
   Typography,
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-  Item,
 } from "@mui/material";
 import BasicDatePicker from "../../components/date-picker/date-picker";
-
-const locations = [
-  { label: "Dhaka", value: "dhaka" },
-  { label: "CTG", value: "ctg" },
-  { label: "Sylhet", value: "sylhet" },
-];
-
-const hospitals = [
-  { label: "Dhaka Hospital", value: "dhakaHospital", location: "dhaka" },
-  { label: "Dhaka Hospital", value: "dhakaHospital", location: "dhaka" },
-  { label: "CTG Hospital", value: "ctgHospital", location: "ctg" },
-  { label: "Sylhet Hospital", value: "sylhetHospital", location: "sylhet" },
-];
-
-const Select = dynamic(() => import("react-select"), { ssr: false });
+import SelectLocationAndHospital from "../../components/appointment/location";
 
 const Appointment = (props) => {
+  // location + hospital data 
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedHospital, setSelectedHospital] = useState(null);
 
@@ -41,49 +21,29 @@ const Appointment = (props) => {
     hospital: "",
   });
 
-  console.log("selectedLocation", selectedLocation);
-  console.log("selectedHospital", selectedHospital);
+  // date picker data 
+  const [dateValue, setdateValue] = useState(dayjs());
+  const [day, setDay] = useState(undefined);
+  const [activeDay, setActiveDay] = useState(undefined);
 
-  function handleSelectLocationChange(selectedLocation) {
-    setSelectedLocation(selectedLocation);
-  }
+  // time data
+  const [time, setTime] = useState(undefined);
 
-  function handleSelectHospitalChange(selectedHospital) {
-    setSelectedHospital(selectedHospital);
-    setFormData({
-      location: selectedLocation.value,
-      hospital: selectedHospital.value,
-    });
-  }
-
-  console.log(formData);
+  // payment category data 
+  const[paymentAmount , setpaymentAmount] = useState(undefined);
 
   return (
     <Container>
       <Grid container spacing={6} sx={{ mt: 4, p: 6 }}>
         <Grid item xs={8}>
-          <div style={{  width: "444px" , margin: "0 auto"}} >
-            <Box>
-              <Select
-                options={locations}
-                onChange={handleSelectLocationChange}
-                value={selectedLocation}
-                placeholder="Select an Location"
-              />
-            </Box>
-            {selectedLocation ? (
-              <Box sx={{ mt: 4 }}>
-                <Select
-                  options={hospitals.filter(
-                    (option) => option.location === selectedLocation.value
-                  )}
-                  onChange={handleSelectHospitalChange}
-                  value={selectedHospital}
-                  placeholder="Select an Hospital"
-                />
-              </Box>
-            ) : null}
-          </div>
+         <SelectLocationAndHospital
+            selectedLocation={selectedLocation}
+            setSelectedLocation={setSelectedLocation}
+            selectedHospital={selectedHospital}
+            setSelectedHospital={setSelectedHospital}
+            formData={formData}
+            setFormData={setFormData}
+         />
           <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
             <Typography
               variant="h2"
@@ -91,20 +51,35 @@ const Appointment = (props) => {
             >
               Select Date
             </Typography>
-            <BasicDatePicker />
+            <BasicDatePicker 
+            dateValue={dateValue}
+            setdateValue={setdateValue}
+            day={day}
+            setDay={setDay}
+            activeDay={activeDay}
+            setActiveDay={setActiveDay}
+            time={time}
+            setTime={setTime}
+            paymentAmount={paymentAmount} 
+            setpaymentAmount={setpaymentAmount}/>
           </Stack>
-          <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
+          {/* <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
             <Typography
               variant="h2"
               sx={{ mt: 3, mb: 4, mr: 10, flexShrink: "0" }}
             >
               Select Type
             </Typography>
-            <RadioButtons/>
-          </Stack>
+            <RadioButtons paymentAmount={paymentAmount} setpaymentAmount={setpaymentAmount}/>
+          </Stack> */}
         </Grid>
         <Grid item xs={4}>
-         <PatientDetilas/>
+         <PatientDetails
+         selectedLocation={selectedLocation}
+         selectedHospital={selectedHospital}
+         dateValue={dateValue}
+         time={time}
+         paymentAmount={paymentAmount}/>
         </Grid>
       </Grid>
     </Container>
