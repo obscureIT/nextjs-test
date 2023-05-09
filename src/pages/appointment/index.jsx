@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import locationData from "../../../public/json/location.json";
-import hospitalData from "../../../public/json/hospital.json";
-import TimeSlots from "../../components/appointment/time-slots"
 import RadioButtons from "../../components/appointment/radio-button";
+import PatientDetilas from "../../components/appointment/patient-detilas"
 // import Select from "react-select";
 import dynamic from "next/dynamic";
 import {
@@ -106,28 +104,7 @@ const Appointment = (props) => {
           </Stack>
         </Grid>
         <Grid item xs={4}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
+         <PatientDetilas/>
         </Grid>
       </Grid>
     </Container>
