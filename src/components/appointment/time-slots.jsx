@@ -1,15 +1,11 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/system";
 import Chip from "@mui/material/Chip";
 
-export default function TimeSlots() {
-  const time = [
+export default function TimeSlots(props) {
+  const { time, setTime } = props;
+
+  const timeArray = [
     "9:00",
     "10:00",
     "11:00",
@@ -27,23 +23,24 @@ export default function TimeSlots() {
   ];
 
   const handleClick = (e) => {
-    console.log(e);
+    setTime(e);
   };
+
   return (
-    <Stack direction="row" sx={{ flexWrap: "wrap" }}>
-      {time &&
-        time.length > 0 &&
-        time.map((value, key) => {
-          return (
-            <Chip
-              key={key}
-              sx={{ mr: "44px", mb: 4 }}
-              color="secondary"
-              label={value}
-              onClick={(e) => handleClick(value)}
-            />
-          );
-        })}
-    </Stack>
+      <Stack direction="row" sx={{ flexWrap: "wrap" }}>
+        {timeArray &&
+          timeArray.length > 0 &&
+          timeArray.map((value, key) => {
+            return (
+              <Chip
+                key={key}
+                sx={{ mr: "44px", mb: 4 }}
+                color={`${time == value ? "primary" : "secondary"}`}
+                label={value}
+                onClick={(e) => handleClick(value)}
+              />
+            );
+          })}
+      </Stack>
   );
 }

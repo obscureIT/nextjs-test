@@ -7,11 +7,21 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Chip from "@mui/material/Chip";
 import { Stack, Typography } from "@mui/material";
 import TimeSlots from "../appointment/time-slots";
+import PaymentAmountRadios from "../appointment/radio-button";
 
-export default function BasicDatePicker() {
-  const [value, setValue] = useState(dayjs());
-  const [day, setDay] = useState(undefined);
-  const [activeDay, setActiveDay] = useState(undefined);
+export default function BasicDatePicker(props) {
+  const {
+    dateValue,
+    setdateValue,
+    day,
+    setDay,
+    activeDay,
+    setActiveDay,
+    time,
+    setTime,
+    paymentAmount,
+    setpaymentAmount,
+  } = props;
 
   const weekDays = [
     "Sunday",
@@ -25,12 +35,13 @@ export default function BasicDatePicker() {
 
   const handleClick = (e) => {
     console.log(e);
+    setdateValue(e);
     setActiveDay(e);
   };
 
   const handleDatePicker = (newValue) => {
     console.log(newValue);
-    setValue(newValue);
+    setdateValue(newValue);
     displayFollowingDays(newValue);
     setActiveDay(newValue);
   };
@@ -56,7 +67,7 @@ export default function BasicDatePicker() {
           <DatePicker
             sx={{ display: "inline" }}
             label="Date"
-            value={value}
+            value={dateValue}
             onChange={(newValue) => handleDatePicker(newValue)}
             format="LL"
           />
@@ -88,7 +99,24 @@ export default function BasicDatePicker() {
           >
             Select Time
           </Typography>
-          <TimeSlots />
+          <TimeSlots time={time} setTime={setTime} />
+        </Stack>
+      ) : (
+        ""
+      )}
+
+      {time ? (
+        <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
+          <Typography
+            variant="h2"
+            sx={{ mt: 3, mb: 4, mr: 10, flexShrink: "0" }}
+          >
+            Select Type
+          </Typography>
+          <PaymentAmountRadios
+            paymentAmount={paymentAmount}
+            setpaymentAmount={setpaymentAmount}
+          />
         </Stack>
       ) : (
         ""
