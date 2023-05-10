@@ -6,6 +6,8 @@ const Select = dynamic(() => import("react-select"), { ssr: false });
 
 const SelectLocationAndHospital = (props) => {
     const {
+        locations,
+        hospitals,
         selectedLocation,
         setSelectedLocation,
         selectedHospital,
@@ -14,23 +16,23 @@ const SelectLocationAndHospital = (props) => {
         setFormData
     } = props;
     
-    const locations = [
-        { label: "Dhaka", value: "dhaka" },
-        { label: "CTG", value: "ctg" },
-        { label: "Sylhet", value: "sylhet" },
-      ];
+    // const locations = [
+    //     { label: "Dhaka", value: "dhaka" },
+    //     { label: "CTG", value: "ctg" },
+    //     { label: "Sylhet", value: "sylhet" },
+    //   ];
       
-      const hospitals = [
-        { label: "Dhaka Hospital", value: "dhakaHospital", location: "dhaka" },
-        { label: "Dhaka Hospital", value: "dhakaHospital", location: "dhaka" },
-        { label: "CTG Hospital", value: "ctgHospital", location: "ctg" },
-        { label: "Sylhet Hospital", value: "sylhetHospital", location: "sylhet" },
-      ];
+      // const hospitals = [
+      //   { label: "Dhaka Hospital", value: "dhaka", location: "dhaka" },
+      //   { label: "Dhaka Hospital", value: "dhakaHospital", location: "dhaka" },
+      //   { label: "CTG Hospital", value: "ctgHospital", location: "ctg" },
+      //   { label: "Sylhet Hospital", value: "sylhetHospital", location: "sylhet" },
+      // ];
       
    
   
-    console.log("selectedLocation", selectedLocation);
-    console.log("selectedHospital", selectedHospital);
+    // console.log("selectedLocation", selectedLocation);
+    // console.log("selectedHospital", selectedHospital);
   
     function handleSelectLocationChange(selectedLocation) {
       setSelectedLocation(selectedLocation);
@@ -44,7 +46,7 @@ const SelectLocationAndHospital = (props) => {
       });
     }
   
-    console.log(formData);
+    // console.log(formData);
   
     return(
     <div style={{  width: "444px" , margin: "0 auto"}} >
@@ -59,9 +61,7 @@ const SelectLocationAndHospital = (props) => {
         {selectedLocation ? (
           <Box sx={{ mt: 4 }}>
             <Select
-              options={hospitals.filter(
-                (option) => option.location === selectedLocation.value
-              )}
+              options={hospitals}
               onChange={handleSelectHospitalChange}
               value={selectedHospital}
               placeholder="Select an Hospital"

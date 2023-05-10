@@ -13,6 +13,7 @@ export default function BasicDatePicker(props) {
   const {
     dateValue,
     setdateValue,
+    timeSlots,
     day,
     setDay,
     activeDay,
@@ -33,14 +34,16 @@ export default function BasicDatePicker(props) {
     "Saturday",
   ];
 
+
+
   const handleClick = (e) => {
-    console.log(e);
+    // console.log(e);
     setdateValue(e);
     setActiveDay(e);
   };
 
   const handleDatePicker = (newValue) => {
-    console.log(newValue);
+    // console.log(newValue);
     setdateValue(newValue);
     displayFollowingDays(newValue);
     setActiveDay(newValue);
@@ -99,7 +102,7 @@ export default function BasicDatePicker(props) {
           >
             Select Time
           </Typography>
-          <TimeSlots time={time} setTime={setTime} />
+          <TimeSlots timeSlots={timeSlots} time={time} setTime={setTime} />
         </Stack>
       ) : (
         ""
