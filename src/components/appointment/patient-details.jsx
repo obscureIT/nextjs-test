@@ -25,7 +25,7 @@ const PatientDetails = (props) => {
 
   dayjs.extend(localizedFormat);
   let date = dayjs(dateValue).format("dddd, LL");
-  console.log(dateValue.$d.getMonth());
+  // console.log(dateValue.$d.getMonth());
 
   const handlePurchase = () => {
     if (
@@ -43,12 +43,12 @@ const PatientDetails = (props) => {
         hospital:selectedHospital.value,
         descripton:"dental",
         category:"dental",
-        month:dateValue.$M,
+        month:dateValue.$M+1,
         day:dateValue.$D,
         hour:time,
         amount:paymentAmount,
       };
-      console.log(data);
+      // console.log(data);
 
       axios
         .post("http://localhost:5000/api/v1/appointment/create", data)

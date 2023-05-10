@@ -3,44 +3,46 @@ import { Stack } from "@mui/system";
 import Chip from "@mui/material/Chip";
 
 export default function TimeSlots(props) {
-  const { time, setTime } = props;
-
-  const timeArray = [
-    "9:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00",
-    "21:00",
-    "22:00",
-  ];
+  const { timeSlots, time, setTime } = props;
 
   const handleClick = (e) => {
     setTime(e);
   };
+  const getTimeColor = (value) => {
+    //check is time slot is booked or not
+    if (value.isBooked) {
+      return "secondary";
+    }
+    // check if time slot is selected or not
+    if (time === value.hour) {
+      return "primary";
+    }
+    else {
+      return "secondary";
+    }
+  };
+
 
   return (
+    // <ThemeProvider theme={theme}>
       <Stack direction="row" sx={{ flexWrap: "wrap" }}>
-        {timeArray &&
-          timeArray.length > 0 &&
-          timeArray.map((value, key) => {
+        {timeSlots &&
+          timeSlots.length > 0 &&
+          timeSlots.map((value, key) => {
             return (
               <Chip
                 key={key}
                 sx={{ mr: "44px", mb: 4 }}
-                color={`${time == value ? "primary" : "secondary"}`}
-                label={value}
-                onClick={(e) => handleClick(value)}
+                color={getTimeColor(value)}
+                label={value.hour}
+                disabled={value.isBooked}
+                onClick={(e) => handleClick(value.hour)}
               />
             );
           })}
       </Stack>
+
+
+    // </ThemeProvider>
   );
 }
