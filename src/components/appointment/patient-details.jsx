@@ -53,7 +53,9 @@ const PatientDetails = (props) => {
       axios
         .post("http://localhost:5000/api/v1/appointment/create", data)
         .then((response) => {
-          console.log("success",response.data);
+          if(response?.data?.payment?.payment_url){
+            window.open(response?.data?.payment?.payment_url)
+          }
         })
         .catch((err) => console.log(err));
     } else {
@@ -175,7 +177,7 @@ const PatientDetails = (props) => {
           size="medium"
           onClick={(e) => handlePurchase(e)}
         >
-          Purchase
+          Book Appointment
         </Button>
       </CardActions>
       <Typography
@@ -184,7 +186,7 @@ const PatientDetails = (props) => {
         sx={{ mb: 1.5, fontSize: "12px", px: 2, py: 2 }}
         color="text.secondary"
       >
-        By clicking the Purchase, you are accepting Terms & Conditions of
+        By clicking , you are accepting Terms & Conditions of
         Adhunik dental.
       </Typography>
     </Card>

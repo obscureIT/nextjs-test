@@ -34,7 +34,6 @@ const Appointment = (props) => {
 
   let getLocations=axios.get("http://localhost:5000/api/v1/appointment/time-table/get-all-location");
   let getHospitals=axios.get(`http://localhost:5000/api/v1/appointment/time-table/get-all-hospital/${selectedLocation?.value}`);
-  let getHours=axios.get(`http://localhost:5000/api/v1/appointment/time-table/get/${selectedLocation?.value}?hospital=${selectedHospital?.value}&month=${dateValue.$M+1}&day=${dateValue.$D}`);
   useEffect(() => {
     getLocations
     .then((response) => {
@@ -67,8 +66,8 @@ const Appointment = (props) => {
   // console.log(allHospitals)
   useEffect(() => {
     if(selectedLocation?.value&&selectedHospital?.value){
-      
-      getHours.then((response) => {
+      axios.get(`http://localhost:5000/api/v1/appointment/time-table/get/${selectedLocation?.value}?hospital=${selectedHospital?.value}&month=${dateValue.$M+1}&day=${dateValue.$D}`)
+      .then((response) => {
         setTimeSlots(response.data.hours);
       })
       .catch((err) => console.log(err));
