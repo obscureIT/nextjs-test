@@ -13,11 +13,12 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const PatientDetails = (props) => {
   const { selectedLocation, selectedHospital, dateValue, time, paymentAmount } =
     props;
-
+  const router=useRouter();
   const user =
     typeof sessionStorage !== "undefined" && sessionStorage.getItem("user")
       ? sessionStorage.getItem("user")
@@ -54,7 +55,7 @@ const PatientDetails = (props) => {
         .post("http://localhost:5000/api/v1/appointment/create", data)
         .then((response) => {
           if(response?.data?.payment?.payment_url){
-            window.open(response?.data?.payment?.payment_url)
+            router.push(response?.data?.payment?.payment_url)
           }
         })
         .catch((err) => console.log(err));
