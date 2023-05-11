@@ -2,12 +2,7 @@ import React , { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import RadioButtons from "../../components/appointment/radio-button";
 import PatientDetails from "../../components/appointment/patient-details"
-import {
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import {Container,Grid,Stack,Typography,} from "@mui/material";
 import BasicDatePicker from "../../components/date-picker/date-picker";
 import SelectLocationAndHospital from "../../components/appointment/location";
 import axios from "axios";
@@ -23,14 +18,10 @@ const Appointment = (props) => {
  const [dateValue, setdateValue] = useState(dayjs());
  const [day, setDay] = useState(undefined);
  const [activeDay, setActiveDay] = useState(undefined);
-
  // time data
  const [time, setTime] = useState(undefined);
-
  // payment category data 
  const[paymentAmount , setpaymentAmount] = useState(undefined);
-
-
 
   let getLocations=axios.get("http://localhost:5000/api/v1/appointment/time-table/get-all-location");
   let getHospitals=axios.get(`http://localhost:5000/api/v1/appointment/time-table/get-all-hospital/${selectedLocation?.value}`);
@@ -75,22 +66,16 @@ const Appointment = (props) => {
   }, [selectedLocation,selectedHospital,dateValue]);
 
   //fetch data from api by axios
-  
-
-
-  
-
   const [formData, setFormData] = useState({
     location: "",
     hospital: "",
   });
 
- 
-
   return (
     <Container>
       <Grid container spacing={6} sx={{ mt: 4, p: 6 }}>
         <Grid item xs={8}>
+       
          <SelectLocationAndHospital
             locations={allLocations}
             hospitals={allHospitals}
@@ -101,7 +86,7 @@ const Appointment = (props) => {
             formData={formData}
             setFormData={setFormData}
          />
-          <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
+          {selectedHospital&&<Stack direction="column" spacing={2} sx={{ mt: 6 }}>
             <Typography
               variant="h2"
               sx={{ mt: 3, mb: 4, mr: 10, flexShrink: "0" }}
@@ -120,24 +105,10 @@ const Appointment = (props) => {
             setTime={setTime}
             paymentAmount={paymentAmount} 
             setpaymentAmount={setpaymentAmount}/>
-          </Stack>
-          {/* <Stack direction="column" spacing={2} sx={{ mt: 6 }}>
-            <Typography
-              variant="h2"
-              sx={{ mt: 3, mb: 4, mr: 10, flexShrink: "0" }}
-            >
-              Select Type
-            </Typography>
-            <RadioButtons paymentAmount={paymentAmount} setpaymentAmount={setpaymentAmount}/>
-          </Stack> */}
+          </Stack>}
         </Grid>
         <Grid item xs={4}>
-         <PatientDetails
-         selectedLocation={selectedLocation}
-         selectedHospital={selectedHospital}
-         dateValue={dateValue}
-         time={time}
-         paymentAmount={paymentAmount}/>
+         <PatientDetails selectedLocation={selectedLocation} selectedHospital={selectedHospital} dateValue={dateValue} time={time} paymentAmount={paymentAmount}/>
         </Grid>
       </Grid>
     </Container>

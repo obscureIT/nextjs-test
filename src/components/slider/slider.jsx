@@ -7,15 +7,20 @@ import Popup from "../popup/popup";
 import Modal from "react-bootstrap/Modal";
 import LoginForm from "../login-form/login-form";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Slider = (props) => {
   const { sliderType, sliderItems } = props;
+  const router = useRouter();
   const [modalShow, setModalShow] = useState(false);
   const [modalShow2, setModalShow2] = useState(false);
 
   const handelModal = () => {
+    if(sessionStorage.getItem('user')){
+      router.push('/appointment')
+    }
     setModalShow2(true);
-    setModalShow(false)
+    setModalShow(false);
   };
 
   return (
@@ -81,7 +86,9 @@ const Slider = (props) => {
           <h4 className="text-center text-secondary">
             Let's login to your Adhunik-dental account first
           </h4>
-          <LoginForm />
+         
+             <LoginForm />
+          
         
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
